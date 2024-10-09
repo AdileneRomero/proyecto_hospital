@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './FormularioRegistro.css';
+import add from './RegistrarPacientes.js'
 
 const QCHAT_test = 'https://www.google.com/' ;
 const SCQ_test = 'https://www.google.com/' ;
@@ -7,15 +8,21 @@ const SCQ_test = 'https://www.google.com/' ;
 
 function FormularioRegistro() {
   const [requierePruebas, setRequierePruebas] = useState(false);
+  const [nombre, setNombre] = useState('');
+  const [edadAnios, setEdadAnios] = useState('');
+  const [edadMeses, setEdadMeses] = useState('');
+  const [numeroExpediente, setNumeroExpediente] = useState('');
+  const [numeroTelefonico, setNumeroTelefonico] = useState('');
 
   const manejarCambioPruebas = () => {
     setRequierePruebas(!requierePruebas);
   };
 
+
   const manejarRegistro = (e) => {
-    //e.preventDefault();
+    e.preventDefault();
     // Aquí puedes agregar la lógica para registrar los datos
-    alert('Formulario registrado');
+    add(nombre, edadAnios, edadMeses, numeroExpediente, numeroTelefonico);
   };
 
   return (
@@ -24,25 +31,62 @@ function FormularioRegistro() {
       <form onSubmit={manejarRegistro}>
         <div className="form-group">
           <label htmlFor="nombre">Nombre del paciente:</label>
-          <input placeholder="Nombre completo" type="text" id="nombre" name="nombre" required />
+          <input        
+                 placeholder="Nombre completo" 
+                 type="text" 
+                 id="nombre" 
+                 name="nombre" 
+                 value = {nombre}
+                 onChange={(e)=> setNombre(e.target.value)}
+                 required />
         </div>
 
         <div className="form-group">
           <label htmlFor="telefonoTutor">Número telefónico del tutor:</label>
-          <input type="tel" id="telefonoTutor" placeholder="Número con lada" name="telefonoTutor" required />
+          <input type="tel" 
+                 id="telefonoTutor" 
+                 placeholder="Número con lada" 
+                 name="telefonoTutor" 
+                 value={numeroTelefonico}
+                 onChange={(e) => setNumeroTelefonico(e.target.value)}
+                 required />
         </div>
 
         <div className="form-group">
           <label htmlFor="edad">Edad del paciente (años y meses):</label>
           <div className="edad-meses-container">
-            <input type="number" id="edad" name="edad" placeholder="Años" min="0" required />
-            <input type="number" id="meses" name="meses" placeholder="Meses" min="0" max="11" required />
+            <input 
+            type="number" 
+            id="edad" 
+            name="edad" 
+            placeholder="Años" 
+            min="0" 
+            value={edadAnios}
+            onChange={(e) => setEdadAnios(e.target.value)}
+            required />
+            <input 
+            type="number" 
+            id="meses" 
+            name="meses" 
+            placeholder="Meses" 
+            min="0" 
+            max="11"
+            value={edadMeses}
+            onChange={(e) => setEdadMeses(e.target.value)}
+            required />
           </div>
         </div>
 
         <div className="form-group">
           <label htmlFor="expediente">Número de expediente:</label>
-          <input type="number" placeholder="Número de expendiente asociado al paciente" id="expediente" name="expediente" required />
+          <input 
+          type="number" 
+          placeholder="Número de expendiente asociado al paciente" 
+          id="expediente" 
+          name="expediente" 
+          value={numeroExpediente}
+          onChange={(e) => setNumeroExpediente(e.target.value)}
+          required />
         </div>
 
         <div className="form-group checkbox">
